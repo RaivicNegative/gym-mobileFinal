@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { supabase } from '../lib/supabase';
@@ -21,22 +22,27 @@ export default function Login() {
     setBusy(false);
   };
   return (
-    <ScrollView style={{ backgroundColor: C.bg }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
-      <View style={{ width: '100%', maxWidth: 420 }}>
-        <Card>
-          <Text style={{ fontSize: 26, fontWeight: '800', color: C.ac }}>Inabanga Wellness Center</Text>
-          <T mu>{reg ? 'Create your member account' : 'Sign in to continue'}</T>
-          {reg && <><Field label="Full name" value={f.name} onChangeText={set('name')} autoCapitalize="words" />
-            <Field label="Date of birth (YYYY-MM-DD)" value={f.dob} onChangeText={set('dob')} placeholder="1995-04-23" />
-            <Field label="Height (cm)" value={f.h} onChangeText={set('h')} keyboardType="numeric" />
-            <Field label="Weight (kg)" value={f.w} onChangeText={set('w')} keyboardType="numeric" /></>}
-          <Field label="Email" value={f.email} onChangeText={set('email')} keyboardType="email-address" />
-          <Field label="Password" value={f.pw} onChangeText={set('pw')} secureTextEntry />
-          {!!msg && <Text style={{ color: '#c92a2a', marginTop: 8 }}>{msg}</Text>}
-          <Btn title={busy ? 'Please wait…' : reg ? 'Register' : 'Login'} onPress={go} />
-          <Btn ghost title={reg ? 'I already have an account' : 'Create an account'} onPress={() => { setReg(!reg); setMsg(''); }} />
-        </Card>
+    <View style={{ flex: 1, width: '100%', backgroundColor: C.bg }}>
+      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+        <Image source={require('../../assets/images/iwcbg.png')} contentFit="cover" style={{ width: '100%', height: '100%' }} />
       </View>
-    </ScrollView>
+      <ScrollView style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.35)' }} contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
+        <View style={{ width: '100%', maxWidth: 420 }}>
+          <Card>
+            <Text style={{ fontSize: 26, fontWeight: '800', color: C.ac }}>Inabanga Wellness Center</Text>
+            <T mu>{reg ? 'Create your member account' : 'Sign in to continue'}</T>
+            {reg && <><Field label="Full name" value={f.name} onChangeText={set('name')} autoCapitalize="words" />
+              <Field label="Date of birth (YYYY-MM-DD)" value={f.dob} onChangeText={set('dob')} placeholder="1995-04-23" />
+              <Field label="Height (cm)" value={f.h} onChangeText={set('h')} keyboardType="numeric" />
+              <Field label="Weight (kg)" value={f.w} onChangeText={set('w')} keyboardType="numeric" /></>}
+            <Field label="Email" value={f.email} onChangeText={set('email')} keyboardType="email-address" />
+            <Field label="Password" value={f.pw} onChangeText={set('pw')} secureTextEntry />
+            {!!msg && <Text style={{ color: '#c92a2a', marginTop: 8 }}>{msg}</Text>}
+            <Btn title={busy ? 'Please wait…' : reg ? 'Register' : 'Login'} onPress={go} />
+            <Btn ghost title={reg ? 'I already have an account' : 'Create an account'} onPress={() => { setReg(!reg); setMsg(''); }} />
+          </Card>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
